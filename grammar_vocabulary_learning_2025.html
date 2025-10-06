@@ -1,0 +1,125 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Grammar Online</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 10px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #333;
+        }
+
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .lesson, .quiz {
+            background-color: white;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .quiz button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .quiz button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Learn Grammar Online</h1>
+    <p>Master English Grammar step by step</p>
+</header>
+
+<nav>
+    <a href="#lessons">Lessons</a>
+    <a href="#quiz">Quiz</a>
+</nav>
+
+<section id="lessons">
+    <h2>Grammar Lessons</h2>
+    <div class="lesson">
+        <h3>1. Nouns</h3>
+        <p>A noun is a person, place, thing, or idea. Example: dog, city, happiness.</p>
+    </div>
+    <div class="lesson">
+        <h3>2. Verbs</h3>
+        <p>A verb describes an action or state. Example: run, is, eat.</p>
+    </div>
+    <div class="lesson">
+        <h3>3. Adjectives</h3>
+        <p>An adjective describes a noun. Example: beautiful, tall, happy.</p>
+    </div>
+</section>
+
+<section id="quiz">
+    <h2>Quick Quiz</h2>
+    <div class="quiz">
+        <p>Choose the correct verb: "She ____ to school every day."</p>
+        <button onclick="checkAnswer(this, 'correct')">go</button>
+        <button onclick="checkAnswer(this, 'wrong')">going</button>
+        <button onclick="checkAnswer(this, 'wrong')">gone</button>
+    </div>
+
+    <div class="quiz">
+        <p>Choose the correct adjective: "It is a ____ day."</p>
+        <button onclick="checkAnswer(this, 'wrong')">quickly</button>
+        <button onclick="checkAnswer(this, 'correct')">sunny</button>
+        <button onclick="checkAnswer(this, 'wrong')">run</button>
+    </div>
+</section>
+
+<script>
+    function checkAnswer(button, type) {
+        if(type === 'correct') {
+            alert('Correct! ✅');
+        } else {
+            alert('Try again! ❌');
+        }
+    }
+</script>
+
+</body>
+</html>

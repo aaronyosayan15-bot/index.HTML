@@ -1,0 +1,323 @@
+ <!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Grammar & Vocabulary — Mega 2025</title>
+    <style>
+        :root{--blue:#0b63d6;--muted:#6b7280;--bg:#f5f7fb;--card:#ffffff}
+        *{box-sizing:border-box}
+        body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:0;background:var(--bg);color:#111}
+        header{background:linear-gradient(90deg,var(--blue),#2a4fb0);color:white;padding:20px 24px;display:flex;align-items:center;justify-content:space-between}
+        header h1{margin:0;font-size:20px}
+        header .save{font-size:13px;opacity:0.95}
+        .wrap{display:grid;grid-template-columns:320px 1fr;gap:18px;padding:18px}
+        nav{background:var(--card);padding:14px;border-radius:10px;box-shadow:0 8px 24px rgba(12,20,40,0.06);height:calc(100vh - 120px);overflow:auto}
+        .mode-switch{display:flex;gap:8px;margin-bottom:12px}
+        .btn{background:#eef5ff;border:0;padding:8px 10px;border-radius:8px;cursor:pointer;font-weight:600}
+        .btn.active{background:var(--blue);color:white}
+        .search{width:100%;padding:10px;border-radius:8px;border:1px solid #e6eefc;margin-bottom:12px}
+        .list{display:flex;flex-direction:column;gap:6px}
+        .item{padding:10px;border-radius:8px;background:#fbfdff;border:1px solid #eef6ff;cursor:pointer}
+        .item small{color:var(--muted)}
+        main{padding:14px;min-height:60vh}
+        .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 8px 24px rgba(12,20,40,0.06)}
+        h2{margin:0 0 8px 0;color:var(--blue)}
+        .meta{color:var(--muted);font-size:14px;margin-bottom:12px}
+        .examples{background:#fbfcff;padding:12px;border-radius:8px;border:1px solid #eef3ff;margin-top:8px}
+        ul{line-height:1.6}
+        .actions{margin-top:12px;display:flex;gap:8px}
+        .small{font-size:13px;color:var(--muted)}
+        footer{padding:12px;text-align:center;color:var(--muted)}
+        .qa .question{padding:12px;border-radius:8px;border:1px solid #eef2ff;margin-bottom:8px}
+        label.option{display:block;margin:6px 0}
+        .result{margin-top:12px}
+        @media (max-width:900px){.wrap{grid-template-columns:1fr;}}
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Grammar & Vocabulary — Mega 2025</h1>
+        <div class="save">Save as <strong>grammar_vocabulary_mega_2025.html</strong></div>
+    </header>
+
+    <div class="wrap">
+        <nav>
+            <div class="mode-switch">
+                <button id="modeVocab" class="btn active">Vocabulary</button>
+                <button id="modeGram" class="btn">Grammar</button>
+            </div>
+            <input id="search" class="search" placeholder="Search topics or keywords" />
+            <div class="list" id="topicList"></div>
+        </nav>
+
+        <main>
+            <div id="contentArea" class="card">
+                <h2>Welcome — Mega Grammar & Vocabulary</h2>
+                <div class="meta">Choose Vocabulary or Grammar, pick a topic, read the long explanation, then click "Go to Questions" (20 items) to practice. The system includes deep descriptions, many examples, usage notes and tips.</div>
+                <p class="small">This single-file web page contains many topics. You can edit the data arrays inside the script to add more examples or change questions.</p>
+            </div>
+        </main>
+    </div>
+
+    <footer>Created for learning • Open the file in your browser after saving.</footer>
+
+<script>
+// ---------------- DATA (comprehensive topics) ----------------
+const vocabularyTopics = [
+    {
+        id:'v-daily', title:'Daily Vocabulary / Common Expressions',
+        description: `Extensive list of everyday words and set phrases used in daily life, grouped by situation: greetings, routines, shopping, transport, time expressions, and common verbs and nouns.`,
+        long: `\n<strong>What it covers:</strong> greetings and polite phrases; talking about daily routine (wake up, brush teeth, commute); shopping vocabulary (price, discount, cashier); transport (bus, ticket, platform); time phrases (in the morning, at night, twice a week).\n\n<strong>Usage notes:</strong> Learn collocations — words that naturally go together (e.g., "have breakfast", "catch a bus"). Practice making short sentences combining these words: "I usually have breakfast at 7:00 AM."\n`,
+        examples: [`Good morning — a greeting used in the morning.`,`I brush my teeth — simple routine sentence.`,`How much is this? — a shopping question.`,`She took the bus to work.`],
+        questions: [
+            {q:'What do you say in the morning?', options:['Good night','Good morning','Goodbye'], a:1},
+            {q:'Which collocation is correct?', options:['do a breakfast','have breakfast','make the breakfast'], a:1},
+            {q:'You want to buy something, you ask?', options:['How much is this?','What time is it?','Where is the station?'], a:0},
+            {q:'Which is a transport?', options:['bus','apple','book'], a:0},
+            {q:'Which expresses routine?', options:['sometimes','always','once a year'], a:1},
+            {q:'Choose correct: "I ___ to work by bus."', options:['go','went','gone'], a:0},
+            {q:'Choose collocation: "___ a shower"', options:['make','have','do'], a:1},
+            {q:'Which is a time phrase?', options:['in the morning','blue','happy'], a:0},
+            {q:'Which is a greeting?', options:['Bye','Breakfast','Ticket'], a:0},
+            {q:'Which asks about price?', options:['Where is it?','How much is it?','When does it start?'], a:1}
+        ]
+    },
+    {
+        id:'v-food', title:'Food & Drink Vocabulary',
+        description:`Words for food categories, meals, preparation verbs, tastes and ordering food. Includes examples of how to order politely and describe taste.`,
+        long:`\n<strong>Categories:</strong> fruits, vegetables, grains, dairy, meat, beverages, meals (breakfast, lunch, dinner), cooking verbs (boil, fry, roast).\n\n<strong>Taste & description:</strong> salty, sweet, sour, bitter, spicy, bland. Use adjectives to describe food: "The soup is too salty."\n`,
+        examples:[`I would like a cup of tea.`,`This apple is sweet.`,`Boil the water before adding pasta.`],
+        questions:[
+            {q:'Which is a dairy product?', options:['cheese','apple','spinach'], a:0},
+            {q:'Choose cooking verb:', options:['listen','boil','sleep'], a:1},
+            {q:'Which describes taste?', options:['delicious','table','chair'], a:0},
+            {q:'Which is a fruit?', options:['carrot','banana','rice'], a:1},
+            {q:'Choose correct order phrase: "I ___ the menu, please."', options:['want','need','would like'], a:2}
+        ]
+    },
+    {
+        id:'v-emotion', title:'Emotions & Feelings',
+        description:'Vocabulary to talk about how people feel and emotional states, with collocations and example dialogues.',
+        long:`\n<strong>Learn:</strong> happy, sad, angry, frustrated, excited, nervous, relieved, disappointed.\n\n<strong>Collocations:</strong> "feel happy", "be excited about", "get angry".\n\n<strong>Sample dialogue:</strong> "How are you? — I'm a bit tired but excited for the trip."\n`,
+        examples:[`She felt relieved after the exam.`,`He is very excited about his new job.`],
+        questions:[
+            {q:'Which word means the opposite of happy?', options:['sad','glad','joyful'], a:0},
+            {q:'Which is a collocation?', options:['feel hungry','feel table','feel car'], a:0},
+            {q:'Choose correct: "She is ___ about the news."', options:['excited','bored','cold'], a:0}
+        ]
+    },
+    {
+        id:'v-tech', title:'Technology & Devices',
+        description:'Words related to computers, the Internet, apps, and common tech verbs.',
+        long:`\n<strong>Key terms:</strong> computer, laptop, smartphone, internet, website, browser, app, download, upload, install.\n\n<strong>Usage tips:</strong> Use "install an app", "open a website", "download a file". Practice with sentences: "I downloaded the update last night."\n`,
+        examples:[`The website is loading.`,`She installed the app on her phone.`],
+        questions:[
+            {q:'Which is a device?', options:['phone','tree','river'], a:0},
+            {q:'Choose tech verb:', options:['download','cook','sleep'], a:0}
+        ]
+    },
+    {
+        id:'v-syn', title:'Synonyms & Antonyms',
+        description:'Pairs of words with similar or opposite meanings. Learn strategy to guess meaning by context.',
+        long:`\n<strong>Examples:</strong> big/large, small/tiny, happy/joyful, big/small (antonym).\n\n<strong>Tips:</strong> When you encounter an unknown word, check nearby words to see if they give clues: look for contrast words (but, however) or lists (and, or).\n`,
+        examples:[`happy — joyful`, `hot — cold`],
+        questions:[
+            {q:'Synonym of big?', options:['small','large','short'], a:1},
+            {q:'Antonym of up?', options:['down','above','over'], a:0}
+        ]
+    },
+    {
+        id:'v-phrasal', title:'Phrasal Verbs',
+        description:'Common phrasal verbs and how their meanings often differ from the individual words.',
+        long:`\n<strong>What they are:</strong> verb + particle (preposition or adverb). Example meanings: "look after" = care for, "give up" = stop trying.\n\n<strong>Practice:</strong> Make sentences: "Please look after my cat." "Don\'t give up!"\n`,
+        examples:[`get up, give up, look after, take off, put on`],
+        questions:[
+            {q:'Meaning of "give up"?', options:['continue','stop trying','sleep'], a:1},
+            {q:'Meaning of "take off" (clothes)?', options:['put on','remove','buy'], a:1}
+        ]
+    }
+];
+
+const grammarTopics = [
+    {
+        id:'g-pos', title:'Parts of Speech — Full Guide',
+        description:'Complete deep dive into the eight main parts of speech with extended examples and usage tips.',
+        long:`\nThis topic explains in detail all main parts of speech: noun, pronoun, verb, adjective, adverb, preposition, conjunction, interjection. For each one we provide definition, types, functions in a sentence, common mistakes and many example sentences.\n\n<strong>Noun (extended):</strong> A noun names a person, place, thing, idea, quality or action. Types include common/proper, concrete/abstract, countable/uncountable, collective, and material. Use nouns as subjects ("The dog barked."), objects ("She read a book."), after prepositions ("in the room"), and in possessive forms ("Rina's book"). Pluralization rules: regular (-s/-es) and irregular (child->children, mouse->mice). Compound nouns: "swimming pool", "mother-in-law".\n\n<strong>Pronoun:</strong> Words that replace nouns (I, you, he, she, it, we, they). Types: personal, reflexive, possessive, relative, demonstrative, interrogative, indefinite. Example: "She gave her book to him." Avoid unclear pronoun references (e.g., "When Sam told Jim he was late" — who is "he"?).\n\n<strong>Verb (extended):</strong> Verbs show action or state (action verbs, linking verbs, auxiliary/helping verbs). Tense, aspect, mood and voice are part of verb grammar. Common mistakes include incorrect subject–verb agreement and wrong tense forms.\n\n<strong>Adjective / Adverb:</strong> Adjectives modify nouns, adverbs modify verbs, adjectives or other adverbs. Many adverbs are formed by adding -ly to adjectives (quick -> quickly) but there are irregular forms (good -> well).\n\n<strong>Preposition:</strong> Show relationships of time, place, direction, cause. Common prepositions: in, on, at, by, for, since, until, between, among. Prepositions are followed by noun phrases ("in the box").\n\n<strong>Conjunction:</strong> Join words or clauses. Coordinating (and, but, or), subordinating (because, although), correlative (either...or). Use commas with coordinating conjunctions joining independent clauses.\n\n<strong>Interjection:</strong> Short exclamations (Wow!, Ouch!, Hooray!) often with exclamation marks. Use them sparingly in formal writing.`,
+        examples:[`Noun: The city is beautiful.`,`Pronoun: He said he was ready.`,`Verb: She is running.`],
+        questions:[
+            {q:'Which is a preposition?', options:['under','happy','run'], a:0},
+            {q:'Pronoun in: "Sara gave him a pen" is?', options:['Sara','him','pen'], a:1},
+            {q:'Which is an adjective?', options:['slowly','blue','walk'], a:1}
+        ]
+    },
+    {
+        id:'g-nouns', title:'Nouns — Very Detailed',
+        description:'Huge detailed page for Nouns: forms, types, functions, plurals, count/uncount, possessive, compound nouns, common mistakes, exercises.',
+        long:`\n<strong>1) Definition & Function:</strong> Nouns identify people (teacher), places (city), things (table), animals (dog), concepts (justice), qualities (bravery), and events (party).\n\n<strong>2) Types:</strong> Proper (London), Common (city), Concrete (apple), Abstract (happiness), Collective (team), Material (gold), Countable (book/books), Uncountable (water).\n\n<strong>3) Forming plurals:</strong> Regular: add -s (cat->cats). Words ending in -s, -x, -z, -ch, -sh add -es (box->boxes). Words ending in consonant + y change y to ies (lady->ladies). Irregular plurals: man->men, child->children, foot->feet, mouse->mice.\n\n<strong>4) Possessives:</strong> Add 's for singular (the boy's ball). For plural nouns ending in s, add only the apostrophe (the teachers' room).\n\n<strong>5) Compound nouns:</strong> Can be written as one word (notebook), hyphenated (mother-in-law) or two words (swimming pool). Meaning can change by form: "a blackboard" vs "black board".\n\n<strong>6) Countable vs Uncountable:</strong> Countable nouns have plural forms and can use numbers (three apples). Uncountable nouns cannot be counted directly and use quantifiers (some milk, a piece of advice). Some nouns can be both depending on meaning: "hair" (uncountable general) vs "a hair" (one strand).\n\n<strong>7) Common mistakes & tips:</strong> Do not use 'many' with uncountable nouns — use 'much' instead. Use 'fewer' with countable nouns and 'less' with uncountable nouns.\n\n<strong>8) Lots of examples:</strong> The teacher explained the lesson. Happiness is important. A herd of cattle. She bought three chairs. Gold is expensive.\n\n<strong>9) Exercises:</strong> Create sentences with different noun types; change singular to plural; convert common to proper nouns; identify countable vs uncountable.\n`,
+        examples:[`The committee decided to postpone the meeting (collective).`,`Water covers most of the Earth (uncountable).`,`My sister's friend lives in Canada (possessive + proper).`],
+        questions:[
+            {q:'Choose the uncountable noun:', options:['rice','books','cars'], a:0},
+            {q:'Plural of "child"?', options:['childs','children','childes'], a:1},
+            {q:'Which is a collective noun?', options:['book','flock','happy'], a:1}
+        ]
+    },
+    {
+        id:'g-verbs', title:'Verbs & Tenses — Comprehensive',
+        description:'Detailed explanation of verb forms, tenses, aspect, auxiliary verbs, modal verbs, voice, and common errors.',
+        long:`\n<strong>Overview:</strong> Verbs are central to sentences. We explain simple tenses, continuous (progressive) tenses, perfect tenses, perfect continuous tenses across present/past/future and give many example sentences.\n\n<strong>Present Simple:</strong> Habitual actions, general truths ("She walks to school.").\n<strong>Present Continuous:</strong> Actions happening now or temporary plans ("She is walking now.").\n<strong>Present Perfect:</strong> Actions with relevance to present ("She has walked three miles.").\n\n<strong>Past Simple:</strong> Completed actions in past ("They visited Paris last year.").\n<strong>Future (will):</strong> Predictions, promises ("I will help you.").\n\n<strong>Modal verbs:</strong> can/could, will/would, shall/should, may/might, must. Used for ability, permission, advice, obligation, probability.\n\n<strong>Voice — Active & Passive:</strong> Passive focuses on action receiver: "The cake was eaten (by John)." Use passive when doer is unknown or unimportant.\n\n<strong>Common problems:</strong> Subject–verb agreement, choosing correct tense for sequence of events, wrong use of modal verbs.\n`,
+        examples:[`I have been living here since 2010.`,`He will have finished by tomorrow.`,`The letter was sent yesterday.`],
+        questions:[
+            {q:'"She is writing" is which tense?', options:['present simple','present continuous','past simple'], a:1},
+            {q:'Passive of "They will finish the work."?', options:['The work will be finished','The work is finished','The work be finished'], a:0},
+            {q:'Modal for ability in the past?', options:['can','could','must'], a:1}
+        ]
+    },
+    {
+        id:'g-adj', title:'Adjectives — Big Guide',
+        description:'Adjectives: types (descriptive, quantitative, demonstrative, possessive), order of adjectives, comparatives & superlatives, position.' ,
+        long:`\n<strong>Types:</strong> Descriptive (beautiful), quantitative (many), demonstrative (this), possessive (my), interrogative (which), distributive (each), compound adjectives (well-known).\n\n<strong>Order of adjectives:</strong> Opinion > Size > Age > Shape > Color > Origin > Material > Purpose (e.g., "a lovely small old round red Italian leather chair").\n\n<strong>Comparatives & Superlatives:</strong> Short adjectives: add -er/-est (small, smaller, smallest). Long adjectives: use more/most (beautiful, more beautiful, most beautiful). Irregulars: good, better, best.\n`,
+        examples:[`He bought an expensive new car.`,`This is the most interesting book I\'ve read.`],
+        questions:[
+            {q:'Comparative of "happy"?', options:['happier','more happy','happiest'], a:0},
+            {q:'Which is demonstrative adjective?', options:['this','quick','blue'], a:0}
+        ]
+    },
+    {
+        id:'g-adv', title:'Adverbs — How & When',
+        description:'Adverbs of manner, time, place, frequency, degree. Formation and placement of adverbs and common confusions (adjective vs adverb).',
+        long:`\n<strong>Manner:</strong> describe how something is done (quickly, carefully).\n<strong>Time:</strong> now, later, yesterday.\n<strong>Place:</strong> here, there, nearby.\n<strong>Frequency:</strong> always, often, seldom.\n\n<strong>Notes:</strong> Many adverbs formed with -ly; some are identical to adjectives (fast, hard). Placement depends on type: frequency adverbs often before the main verb (He always eats early).` ,
+        examples:[`She runs quickly.`,`I will visit soon.`],
+        questions:[
+            {q:'Which is adverb of frequency?', options:['never','table','blue'], a:0},
+            {q:'Form of adverb from "quick"?', options:['quickly','quickest','quickness'], a:0}
+        ]
+    },
+    {
+        id:'g-prep', title:'Prepositions — In, On, At & More',
+        description:'Prepositions of time, place and movement with detailed usage and tricky examples (in/at/on differences).',
+        long:`\n<strong>Time:</strong> at 5 pm, on Monday, in July.\n<strong>Place:</strong> at the door, on the table, in the room.\n<strong>Movement:</strong> to the park, into the house, across the river.\n\n<strong>Tricky points:</strong> "in the morning" vs "at night"; "on the bus" vs "in the car"; prepositions with adjectives: interested in, good at.` ,
+        examples:[`Meet me at 6 o\'clock.`,`The book is on the shelf.`],
+        questions:[
+            {q:'Which is correct: "I will see you ___ Monday"', options:['in','on','at'], a:1},
+            {q:'Where: "The cat is ___ the table"', options:['in','on','under'], a:1}
+        ]
+    },
+    {
+        id:'g-conj', title:'Conjunctions & Sentence Linking',
+        description:'Coordinating, subordinating and correlative conjunctions with usage and punctuation rules.',
+        long:`\n<strong>Coordinating:</strong> for, and, nor, but, or, yet, so (FANBOYS).\n<strong>Subordinating:</strong> because, although, since, if, when.\n<strong>Correlative:</strong> either...or, neither...nor, not only...but also.\n\n<strong>Punctuation:</strong> Use a comma before coordinating conjunctions when joining two independent clauses (I came, and I left).` ,
+        examples:[`I wanted to go, but it rained.`,`Either you call me or I will call you.`],
+        questions:[
+            {q:'Which is coordinating?', options:['because','and','although'], a:1},
+            {q:'Choose correlative pair:', options:['either...or','because...so','and...but'], a:0}
+        ]
+    },
+    {
+        id:'g-articles', title:'Articles — a, an, the (Complete)',
+        description:'When to use a/an/the, zero article, special cases, pronunciation tips for a/an with vowel sounds, and common mistakes.',
+        long:`\nUse 'a' before consonant sounds (a cat), 'an' before vowel sounds (an apple). 'The' is for specific or unique items (the sun). No article for general plural/uncountable nouns when speaking in general (Books are useful, Water is essential).\n\n<strong>Special</strong>: 'the' with superlatives (the best), ordinals (the first), instruments (play the piano), and with family names (the Smiths).` ,
+        examples:[`I saw a movie.`, `An hour passed.`, `The moon is bright.`],
+        questions:[
+            {q:'Which uses "an"?', options:['a cat','an orange','the book'], a:1},
+            {q:'Use "the" when?', options:['specific item','any item','no noun'], a:0}
+        ]
+    },
+    {
+        id:'g-neg', title:'Negation & Questions — How to Form',
+        description:'Negatives with do/does/did, be, have; question formation with auxiliaries and wh- words; question tags.',
+        long:`\nForm negatives: do not (don\'t) for present simple (I do not like), did not for past simple, is/are + not for continuous or states.\n\nQuestions: Use auxiliary inversion (Do you like it?). Wh- questions: who, what, where, when, why, how. Question tags: You\'re coming, aren\'t you?` ,
+        examples:[`Do you play football?`,`She doesn\'t like coffee.`],
+        questions:[
+            {q:'Negation of "He eats"?', options:['He not eats','He does not eat','He did eats'], a:1},
+            {q:'Question: "They went" -> ?', options:['Did they go?','Do they go?','Are they go?'], a:0}
+        ]
+    }
+];
+
+// ---------------- UI & functions ----------------
+let mode = 'vocab';
+const topicList = document.getElementById('topicList');
+const contentArea = document.getElementById('contentArea');
+const search = document.getElementById('search');
+const modeVocab = document.getElementById('modeVocab');
+const modeGram = document.getElementById('modeGram');
+
+modeVocab.onclick = ()=>{ mode='vocab'; modeVocab.classList.add('active'); modeGram.classList.remove('active'); renderList(); showWelcome(); };
+modeGram.onclick = ()=>{ mode='gram'; modeGram.classList.add('active'); modeVocab.classList.remove('active'); renderList(); showWelcome(); };
+search.oninput = ()=> renderList();
+
+function getData(){ return mode==='vocab' ? vocabularyTopics : grammarTopics; }
+
+function renderList(){
+    const data = getData();
+    const q = (search.value||'').toLowerCase();
+    topicList.innerHTML = '';
+    data.forEach(t=>{
+        if(q && !(t.title.toLowerCase().includes(q) || (t.description||'').toLowerCase().includes(q) || (t.long||'').toLowerCase().includes(q))) return;
+        const el = document.createElement('div'); el.className='item';
+        el.innerHTML = `<strong>${t.title}</strong><div class='small'>${t.description}</div>`;
+        el.onclick = ()=> openTopic(t.id);
+        topicList.appendChild(el);
+    });
+}
+
+function showWelcome(){
+    contentArea.innerHTML = `<h2>Welcome — Mega Grammar & Vocabulary</h2><div class="meta">Mode: ${mode === 'vocab' ? 'Vocabulary' : 'Grammar'}. Choose a topic on the left to see a long explanation, many examples and practice questions (20 items).</div><p class="small">Tip: Use the search box to find keywords inside topics.</p>`;
+}
+
+function openTopic(id){
+    const data = getData();
+    const topic = data.find(t=>t.id===id);
+    if(!topic) return;
+    // build long page with many details and a 'Go to Questions' button
+    let html = `<h2>${topic.title}</h2><div class='meta'>Mode: ${mode==='vocab'?'Vocabulary':'Grammar'} — deep explanation and many examples</div>`;
+    html += `<div>${topic.long.replace(/\n/g,'<br>')}</div>`;
+    if(topic.examples && topic.examples.length){ html += `<div class='examples'><strong>Examples & Sentences:</strong><ul>` + topic.examples.map(e=>`<li>${e}</li>`).join('') + `</ul></div>`; }
+    html += `<div class='actions'><button class='btn' id='gotoQ'>Go to Questions</button><button class='btn' id='backList'>Back</button></div>`;
+    html += `<div id='notes' class='small' style='margin-top:8px'>Notes: Read carefully; use the "Go to Questions" button to practice. Questions are multiple choice and will show the correct answers after checking.</div>`;
+    contentArea.innerHTML = html;
+    document.getElementById('backList').onclick = ()=> showWelcome();
+    document.getElementById('gotoQ').onclick = ()=> showQuestionsFor(topic);
+}
+
+function showQuestionsFor(topic){
+    // prepare 20 questions: if topic.questions has fewer, repeat with slight label modifications
+    const pool = topic.questions || [];
+    if(pool.length===0){ contentArea.innerHTML = `<h2>${topic.title} — Questions</h2><div class='small'>No questions available for this topic yet.</div><div class='actions'><button class='btn' onclick='showWelcome()'>Back</button></div>`; return; }
+    const questions = [];
+    let i=0; while(questions.length<20){
+        const pick = JSON.parse(JSON.stringify(pool[i % pool.length]));
+        if(i>=pool.length) pick.q = pick.q + ' (repeat)';
+        questions.push(pick); i++; }
+
+    let html = `<h2>Questions — ${topic.title}</h2><div class='meta'>Answer these ${questions.length} questions, then click Check Answers.</div><div class='qa' id='qa'>`;
+    questions.forEach((it,idx)=>{
+        html += `<div class='question'><div><strong>Q${idx+1}.</strong> ${it.q}</div>`;
+        it.options.forEach((opt,o)=>{ html += `<label class='option'><input type='radio' name='q${idx}' value='${o}' /> ${opt}</label>`; });
+        html += `</div>`;
+    });
+    html += `</div><div class='actions'><button class='btn' id='check'>Check Answers</button><button class='btn' id='back'>Back</button></div><div id='result' class='result'></div>`;
+    contentArea.innerHTML = html;
+    document.getElementById('back').onclick = ()=> openTopic(topic.id);
+    document.getElementById('check').onclick = ()=> checkAnswers(questions);
+}
+
+function checkAnswers(questions){
+    let score=0; const total = questions.length;
+    const resultDiv = document.getElementById('result');
+    let details='';
+    questions.forEach((q,idx)=>{
+        const els = document.getElementsByName('q'+idx);
+        let sel = null; for(const e of els) if(e.checked) sel = Number(e.value);
+        if(sel !== null && sel === q.a){ score++; }
+        else { details += `<div class='small'>Q${idx+1}: Correct answer — <strong>${q.options[q.a]}</strong></div>`; }
+    });
+    resultDiv.innerHTML = `<div class='small'><strong>Score:</strong> ${score} / ${total}</div>` + (details?('<div style="margin-top:8px">'+details+'</div>'):'<div style="margin-top:8px;color:green">Great! All correct.</div>');
+}
+
+// initial render
+renderList(); showWelcome();
+</script>
+</body>
+</html>
